@@ -69,9 +69,11 @@ module Curzon
   end
 end
 
+date = Time.parse(ARGV[0] || Time.now.to_s)
+
 cinemas = ['ALD1', 'SOH1', 'VIC1', 'MAY1', 'HOX1', 'CAM1', 'BLO1']
 token = Curzon::AuthToken.new.fetch!
-showtimes = Curzon::Showtimes.new(token, cinemas).fetch!
+showtimes = Curzon::Showtimes.new(token, cinemas, date).fetch!
 
 showtimes.sort_by{ |showtime| showtime[:film] }.each do |showtime|
   puts "#{showtime[:film]} #{showtime[:url]}"
